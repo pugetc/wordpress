@@ -32,6 +32,9 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VER
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
+# Openshift v3 Add execution right on EntryPoint
+RUN chmod +x /entrypoint.sh
+
 USER 1001
 
 # grr, ENTRYPOINT resets CMD now
