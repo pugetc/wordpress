@@ -32,7 +32,11 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VER
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
-# Openshift v3 Add execution right on EntryPoint
+# Drop the root user and make the content of /opt/app-root owned by user 1001
+# Add execution right on EntryPoint
+RUN chown -R 1001:0 /var/lock/apache2
+RUN chown -R 1001:0 /var/run/apache2
+RUN chown -R 1001:0 /var/log/apache2
 RUN chmod +x /entrypoint.sh
 
 USER 1001
